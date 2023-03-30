@@ -47,3 +47,7 @@
 @import url(./blocks/form/__input/_type_error/form__input_type_error.css);
 
 @import url(./blocks/popup/_opened/popup_opened.css);
+
+@import url(./blocks/authorization/authorization.css);
+@import url(./blocks/authorization/__title/authorization__title.css);
+@import url(./blocks/authorization/__form/authorization__form.css);

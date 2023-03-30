@@ -1,5 +1,6 @@
 import { useForm } from '../hooks/useForm'
 import { Link } from 'react-router-dom'
+import Input from './Input'
 
 export default function Register(params) {
   const { values, handleChange, setValues } = useForm({})

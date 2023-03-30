@@ -9,7 +9,7 @@ import EditAvatarPopup from './EditAvatarPopup'
 import AddPlacePopup from './AddPlacePopup'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../utils/api'
-import { Route, Routes } from 'react-router'
+import { Redirect, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 import Register from './Register'
 import Login from './Login'
@@ -179,13 +179,13 @@ function App() {
             path="/sigh-up"
             element={Register}
             isLoggedId={loggedIn}
-            onLogin={cbRegister} //..
+            // onLogin={cbRegister} //..
           />
           <Route
             path="/sigh-in"
             element={Login}
             isLoggedId={loggedIn}
-            onLogin={cbLogin} //..
+            // onLogin={cbLogin} //..
           />
           <Route>
             {loggedIn ? <Redirect to="/sigh-up" /> : <Redirect to="/sigh-in" />}

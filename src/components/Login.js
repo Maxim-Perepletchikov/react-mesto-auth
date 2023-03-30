@@ -1,4 +1,5 @@
 import { useForm } from '../hooks/useForm'
+import Input from './Input'
 
 export default function Login(params) {
   const { values, handleChange, setValues } = useForm({})
