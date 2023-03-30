@@ -1,0 +1,10 @@
+.form__error-container {
+  display: inline-block;
+  min-height: 61px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.form__error-container:nth-child(odd) {
+  margin: 0;
+}

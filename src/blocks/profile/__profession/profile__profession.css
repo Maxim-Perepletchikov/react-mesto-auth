@@ -1,0 +1,24 @@
+.profile__profession {
+  margin: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  grid-column: 1 / 3;
+  max-width: 500px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 720px) {
+  .profile__profession {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .profile__profession {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
