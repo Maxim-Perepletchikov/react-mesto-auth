@@ -10,6 +10,9 @@ import AddPlacePopup from './AddPlacePopup'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../utils/api'
 import { Route, Routes } from 'react-router'
+import ProtectedRoute from './ProtectedRoute'
+import Register from './Register'
+import Login from './Login'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -25,7 +28,7 @@ function App() {
     isLoading ? 'Сохранение...' : 'Сохранить'
   )
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false)
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -159,10 +162,36 @@ function App() {
       <div className="page">
         <Header />
         <Routes>
-          <Route path='/sigh-up' element={/* Register */} />
-          <Route path='/sigh-in' element={Login} />
+          <ProtectedRoute
+            path="/"
+            component={Main}
+            loggedIn={loggedIn}
+            cards={cards}
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            isLoading={isLoading}
+          />
+          <Route
+            path="/sigh-up"
+            element={Register}
+            isLoggedId={loggedIn}
+            onLogin={cbRegister} //..
+          />
+          <Route
+            path="/sigh-in"
+            element={Login}
+            isLoggedId={loggedIn}
+            onLogin={cbLogin} //..
+          />
+          <Route>
+            {loggedIn ? <Redirect to="/sigh-up" /> : <Redirect to="/sigh-in" />}
+          </Route>
         </Routes>
-        <Main
+        {/* <Main
           cards={cards}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
@@ -171,7 +200,7 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
           isLoading={isLoading}
-        />
+        /> */}
         <Footer />
 
         <EditAvatarPopup

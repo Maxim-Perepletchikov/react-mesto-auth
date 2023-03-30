@@ -1,6 +1,7 @@
 import { useForm } from '../hooks/useForm'
+import { Link } from 'react-router-dom'
 
-export default function Login(params) {
+export default function Register(params) {
   const { values, handleChange, setValues } = useForm({})
 
   function handleSubmit(e) {
@@ -10,7 +11,7 @@ export default function Login(params) {
 
   return (
     <div className="authorization">
-      <h1 className="authorization__title">Вход</h1>
+      <h1 className="authorization__title">Регистрация</h1>
       <form className="authorization__form" onSubmit={handleSubmit}>
         <Input
           type="email"
@@ -29,6 +30,9 @@ export default function Login(params) {
           onChange={handleChange}
         />
       </form>
+      <Link to="/sign-in" className="authorization__link">
+        Уже зарегистрированы? Войти
+      </Link>
     </div>
   )
 }
