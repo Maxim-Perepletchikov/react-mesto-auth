@@ -9,7 +9,7 @@ import EditAvatarPopup from './EditAvatarPopup'
 import AddPlacePopup from './AddPlacePopup'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../utils/api'
-import { Redirect, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 import Register from './Register'
 import Login from './Login'
@@ -162,19 +162,6 @@ function App() {
       <div className="page">
         <Header />
         <Routes>
-          <ProtectedRoute
-            path="/"
-            component={Main}
-            loggedIn={loggedIn}
-            cards={cards}
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            isLoading={isLoading}
-          />
           <Route
             path="/sigh-up"
             element={Register}
@@ -187,9 +174,20 @@ function App() {
             isLoggedId={loggedIn}
             // onLogin={cbLogin} //..
           />
-          <Route>
-            {loggedIn ? <Redirect to="/sigh-up" /> : <Redirect to="/sigh-in" />}
-          </Route>
+          <Route
+            path="/"
+            element={ProtectedRoute}
+            component={Main}
+            loggedIn={loggedIn}
+            cards={cards}
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            isLoading={isLoading}
+          />
         </Routes>
         {/* <Main
           cards={cards}
