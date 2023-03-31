@@ -164,13 +164,13 @@ function App() {
         <Routes>
           <Route
             path="/sigh-up"
-            element={Register}
+            element={<Register />}
             isLoggedId={loggedIn}
             // onLogin={cbRegister} //..
           />
           <Route
             path="/sigh-in"
-            element={Login}
+            element={<Login />}
             isLoggedId={loggedIn}
             // onLogin={cbLogin} //..
           />
