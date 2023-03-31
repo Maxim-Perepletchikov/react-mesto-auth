@@ -176,8 +176,7 @@ function App() {
           />
           <Route
             path="/"
-            element={ProtectedRoute}
-            component={Main}
+            element={<ProtectedRoute component={Main}
             loggedIn={loggedIn}
             cards={cards}
             onEditAvatar={handleEditAvatarClick}
@@ -186,7 +185,8 @@ function App() {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-            isLoading={isLoading}
+            isLoading={isLoading} />}
+            
           />
         </Routes>
         {/* <Main
