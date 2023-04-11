@@ -45,9 +45,11 @@
 @import url(./blocks/form/__save-button/form__save-button.css);
 @import url(./blocks/form/__save-button/_disabled/form__save-button_disabled.css);
 @import url(./blocks/form/__input/_type_error/form__input_type_error.css);
+@import url(./blocks/form/__title/_color_white/form__title_color_white.css);
+@import url(./blocks/form/__input/_color_black/form__input_color_black.css);
+@import url(./blocks/form/__save-button/_color_white/form__save-button_color-white.css);
 
 @import url(./blocks/popup/_opened/popup_opened.css);
 
-@import url(./blocks/authorization/authorization.css);
-@import url(./blocks/authorization/__title/authorization__title.css);
-@import url(./blocks/authorization/__form/authorization__form.css);
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__footer/auth__footer.css);

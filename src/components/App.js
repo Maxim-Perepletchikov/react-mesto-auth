@@ -9,10 +9,8 @@ import EditAvatarPopup from './EditAvatarPopup'
 import AddPlacePopup from './AddPlacePopup'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../utils/api'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import ProtectedRoute from './ProtectedRoute'
-import Register from './Register'
 import Login from './Login'
+import Register from './Register'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -27,8 +25,6 @@ function App() {
   const [buttonText, setButtonText] = useState(
     isLoading ? 'Сохранение...' : 'Сохранить'
   )
-
-  const [loggedIn, setLoggedIn] = useState(false)
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -161,34 +157,8 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-        <Routes>
-          <Route
-            path="/sigh-up"
-            element={<Register />}
-            isLoggedId={loggedIn}
-            // onLogin={cbRegister} //..
-          />
-          <Route
-            path="/sigh-in"
-            element={<Login />}
-            isLoggedId={loggedIn}
-            // onLogin={cbLogin} //..
-          />
-          <Route
-            path="/"
-            element={<ProtectedRoute component={Main}
-            loggedIn={loggedIn}
-            cards={cards}
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            isLoading={isLoading} />}
-            
-          />
-        </Routes>
+        <Login />
+        <Register />
         {/* <Main
           cards={cards}
           onEditAvatar={handleEditAvatarClick}

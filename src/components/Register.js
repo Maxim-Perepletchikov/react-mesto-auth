@@ -1,39 +1,26 @@
-import { useForm } from '../hooks/useForm'
-import { Link } from 'react-router-dom'
+import FormForLoginRegister from './FormForLoginRegister'
 import Input from './Input'
 
-export default function Register(params) {
-  const { values, handleChange, setValues } = useForm({})
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    // ...
-  }
-
+export default function Register() {
   return (
-    <div className="authorization">
-      <h1 className="authorization__title">Регистрация</h1>
-      <form className="authorization__form" onSubmit={handleSubmit}>
+    <div className="auth">
+      <FormForLoginRegister buttonText="Зарегистрироваться" title="Регистрация" styleButton="form__save-button_color-white">
         <Input
           type="email"
-          id="login-input"
-          name="email"
+          id="email-input"
+          name="emailInput"
           placeholder="Email"
-          value={values.email || ''}
-          onChange={handleChange}
+          style="form__input_color_black"
         />
         <Input
           type="password"
           id="password-input"
-          name="password"
+          name="passwordInput"
           placeholder="Пароль"
-          value={values.password || ''}
-          onChange={handleChange}
+          style="form__input_color_black"
         />
-      </form>
-      <Link to="/sign-in" className="authorization__link">
-        Уже зарегистрированы? Войти
-      </Link>
+      </FormForLoginRegister>
+      <div className="auth__footer">Уже зарегистрированы? Войти</div>
     </div>
   )
 }

@@ -1,8 +1,8 @@
-export default function Input({ type, id, name, placeholder, value, onChange, refs}) {
+export default function Input({ type, id, name, placeholder, value, onChange, refs, style}) {
   return (
     <div className="form__error-container">
       <input
-        className="form__input"
+        className={`form__input ${style}`}
         type={type}
         id={id}
         name={name}
