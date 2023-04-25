@@ -11,8 +11,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../utils/api'
 import Login from './Login'
 import Register from './Register'
-import { Route, Routes, Navigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
+import * as auth from '../utils/auth'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -35,6 +36,12 @@ function App() {
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
     selectedCard.isOpen
+
+  function handleRegister({emailInput, passwordInput}) {
+    auth.register({emailInput, passwordInput})
+      .then(res => console.log('успешно'))
+      .catch(res => console.log('ошибка'))
+  }
 
   useEffect(() => {
     setIsLoading(true)
@@ -162,7 +169,7 @@ function App() {
       <div className="page">
         <Header />
         <Routes>
-          <Route path="/sign-up" element={<Register />} />
+          <Route path="/sign-up" element={<Register onRegister={handleRegister} />}  />
           <Route path="/sign-in" element={<Login />} />
           <Route
             path="/"

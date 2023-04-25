@@ -1,10 +1,24 @@
+import { useForm } from '../hooks/useForm'
 import FormForLoginRegister from './FormForLoginRegister'
 import Input from './Input'
 
-export default function Register() {
+export default function Register({onRegister}) {
+  const { values, handleChange, setValues } = useForm()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onRegister(values)
+  }
+
   return (
     <div className="auth">
-      <FormForLoginRegister buttonText="Зарегистрироваться" title="Регистрация" styleButton="form__save-button_color-white">
+      <FormForLoginRegister
+        buttonText="Зарегистрироваться"
+        title="Регистрация"
+        styleButton="form__save-button_color-white"
+        onSubmit={handleSubmit}
+        name='register'
+      >
         <Input
           type="email"
           id="email-input"
