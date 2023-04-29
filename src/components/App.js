@@ -43,6 +43,12 @@ function App() {
       .catch(console.log)
   }
 
+  function handleLogin(values) {
+    auth.authorize(values.emailInput, values.passwordInput)
+    .then(console.log)
+    .catch(console.log)
+  }
+
   useEffect(() => {
     setIsLoading(true)
     api
@@ -170,7 +176,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/sign-up" element={<Register onRegister={handleRegister} />}  />
-          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-in" element={<Login onLogin={handleLogin}/>} />
           <Route
             path="/"
             element={
