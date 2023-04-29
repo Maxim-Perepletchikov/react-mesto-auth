@@ -37,10 +37,10 @@ function App() {
     isAddPlacePopupOpen ||
     selectedCard.isOpen
 
-  function handleRegister({emailInput, passwordInput}) {
-    auth.register({emailInput, passwordInput})
-      .then(res => console.log('успешно'))
-      .catch(res => console.log('ошибка'))
+  function handleRegister(values) {
+    auth.register(values.emailInput, values.passwordInput)
+      .then(console.log)
+      .catch(console.log)
   }
 
   useEffect(() => {

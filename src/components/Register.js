@@ -3,7 +3,7 @@ import FormForLoginRegister from './FormForLoginRegister'
 import Input from './Input'
 
 export default function Register({onRegister}) {
-  const { values, handleChange, setValues } = useForm()
+  const { values, handleChange, setValues } = useForm({})
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -25,6 +25,8 @@ export default function Register({onRegister}) {
           name="emailInput"
           placeholder="Email"
           style="form__input_color_black"
+          value={values.emailInput || ''}
+          onChange={handleChange}
         />
         <Input
           type="password"
@@ -32,6 +34,8 @@ export default function Register({onRegister}) {
           name="passwordInput"
           placeholder="Пароль"
           style="form__input_color_black"
+          value={values.passwordInput || ''}
+          onChange={handleChange}
         />
       </FormForLoginRegister>
       <div className="auth__footer">Уже зарегистрированы? Войти</div>
