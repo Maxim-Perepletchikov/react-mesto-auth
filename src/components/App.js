@@ -11,7 +11,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../utils/api'
 import Login from './Login'
 import Register from './Register'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 import * as auth from '../utils/auth'
 
@@ -30,12 +30,16 @@ function App() {
   )
 
   const [loggedIn, setLoggedIn] = useState(false)
+  // const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState('')
 
   const isOpen =
     isEditAvatarPopupOpen ||
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
     selectedCard.isOpen
+
+  const navigate = useNavigate()
 
   function handleRegister(values) {
     auth.register(values.emailInput, values.passwordInput)
@@ -45,8 +49,14 @@ function App() {
 
   function handleLogin(values) {
     auth.authorize(values.emailInput, values.passwordInput)
-    .then(console.log)
+    .then(res => {
+      localStorage.setItem('jwt', res.token)
+      setLoggedIn(true)
+      navigate('/', {replace: true})
+      setUserEmail(values.emailInput)
+    })
     .catch(console.log)
+    // .finally(() => setLoading(false))
   }
 
   useEffect(() => {
