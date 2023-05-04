@@ -59,6 +59,28 @@ function App() {
     // .finally(() => setLoading(false))
   }
 
+  function tokenCheck() {
+    const jwt = localStorage.getItem('jwt')
+    if(jwt) {
+      auth.getContent(jwt)
+        .then(res => {
+          setLoggedIn(true)
+          setUserEmail(res.data.email)
+          navigate('/', {replace: true})
+        })
+        .catch(console.log)
+    }
+  }
+
+  useEffect(() => tokenCheck(), [])
+
+  function handleLogout() {
+    setLoggedIn(false)
+    localStorage.removeItem('jwt')
+    setUserEmail('')
+    navigate('/sign-in')
+  }
+
   useEffect(() => {
     setIsLoading(true)
     api
@@ -183,7 +205,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header userEmail={userEmail} onLogout={handleLogout} />
         <Routes>
           <Route path="/sign-up" element={<Register onRegister={handleRegister} />}  />
           <Route path="/sign-in" element={<Login onLogin={handleLogin}/>} />

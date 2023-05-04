@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import logo from '../images/header-logo.svg'
 import { Link } from 'react-router-dom'
 
-export default function Header() {
+export default function Header({userEmail, onLogout}) {
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="логотип" />
@@ -21,6 +21,15 @@ export default function Header() {
             <Link to={'/sign-up'} className="header__link">
               Регистрация
             </Link>
+          }
+        />
+        <Route 
+          path='/'
+          element={
+            <div>
+              <p>{userEmail}</p>
+              <button onClick={onLogout}>Выйти</button>
+            </div>
           }
         />
       </Routes>
