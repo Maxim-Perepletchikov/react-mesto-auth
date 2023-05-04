@@ -26,9 +26,9 @@ export default function Header({userEmail, onLogout}) {
         <Route 
           path='/'
           element={
-            <div>
-              <p>{userEmail}</p>
-              <button onClick={onLogout}>Выйти</button>
+            <div className='header__user-info'>
+              <p className='header__user-email'>{userEmail}</p>
+              <button className='header__logout' onClick={onLogout}>Выйти</button>
             </div>
           }
         />

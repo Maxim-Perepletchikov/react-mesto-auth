@@ -1,0 +1,9 @@
+.header__logout {
+  background-color: black;
+  color: #a9a9a9;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+}
