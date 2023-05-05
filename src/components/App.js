@@ -50,8 +50,20 @@ function App() {
 
   function handleRegister(values) {
     auth.register(values.emailInput, values.passwordInput)
-      .then(console.log)
-      .catch(console.log)
+      .then(() => {
+        setMessage({
+          status: true,
+          text: 'Вы успешно зарегистрировались!'
+        })
+        navigate('/sign-in', {replace: true})
+      })
+      .catch(() => {
+        setMessage({
+          status: false,
+          text: 'Что-то пошло не так! Попробуйте ещё раз.'
+        })
+      })
+      .finally(() => setIsInfoTooltip(true))
   }
 
   function handleLogin(values) {
