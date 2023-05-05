@@ -14,11 +14,13 @@ import Register from './Register'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 import * as auth from '../utils/auth'
+import InfoTooltip from './InfoTooltip'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+  const [isInfoTooltip, setIsInfoTooltip] = useState(false)
 
   const [selectedCard, setSelectedCard] = useState({})
   const [currentUser, setCurrentUser] = useState({})
@@ -32,11 +34,16 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   // const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState('')
+  const [message, setMessage] = useState({
+    status: false,
+    text: ''
+  })
 
   const isOpen =
     isEditAvatarPopupOpen ||
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
+    isInfoTooltip ||
     selectedCard.isOpen
 
   const navigate = useNavigate()
@@ -55,7 +62,13 @@ function App() {
       navigate('/', {replace: true})
       setUserEmail(values.emailInput)
     })
-    .catch(console.log)
+    .catch(() => {
+      setMessage({
+        status: false,
+        text: 'Что-то пошло не так! Попробуйте ещё раз.'
+      })
+      setIsInfoTooltip(true)
+    })
     // .finally(() => setLoading(false))
   }
 
@@ -123,6 +136,7 @@ function App() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
+    setIsInfoTooltip(false)
     setSelectedCard({ ...selectedCard, isOpen: false })
   }
 
@@ -259,6 +273,12 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlace}
           buttonText={buttonText}
+        />
+
+        <InfoTooltip 
+          isOpen={isInfoTooltip}
+          onClose={closeAllPopups}
+          message={message}
         />
 
         <PopupWithForm name="delete-card" title="Вы уверенны?" />
