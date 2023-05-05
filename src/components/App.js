@@ -242,16 +242,6 @@ function App() {
           />
         </Routes>
 
-        {/* <Main
-          cards={cards}
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          isLoading={isLoading}
-        /> */}
         <Footer />
 
         <EditAvatarPopup
