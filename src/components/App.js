@@ -11,7 +11,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../utils/api'
 import Login from './Login'
 import Register from './Register'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 import * as auth from '../utils/auth'
 import InfoTooltip from './InfoTooltip'
@@ -107,30 +107,32 @@ function App() {
   }
 
   useEffect(() => {
-    setIsLoading(true)
-    api
-      .getInfoProfile()
-      .then((data) => {
-        setCurrentUser(data)
-      })
-      .catch(console.log)
-
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(
-          data.map((item) => ({
-            _id: item._id,
-            likes: item.likes,
-            name: item.name,
-            link: item.link,
-            owner: item.owner,
-          }))
-        )
-      })
-      .catch(console.log)
-      .finally(() => setIsLoading(false))
-  }, [])
+    if (loggedIn) {
+      setIsLoading(true)
+      api
+        .getInfoProfile()
+        .then((data) => {
+          setCurrentUser(data)
+        })
+        .catch(console.log)
+  
+      api
+        .getInitialCards()
+        .then((data) => {
+          setCards(
+            data.map((item) => ({
+              _id: item._id,
+              likes: item.likes,
+              name: item.name,
+              link: item.link,
+              owner: item.owner,
+            }))
+          )
+        })
+        .catch(console.log)
+        .finally(() => setIsLoading(false))
+    }
+  }, [loggedIn])
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
@@ -215,12 +217,12 @@ function App() {
   }
 
   useEffect(() => {
-    function closeByEscape(evt) {
-      if (evt.key === 'Escape') {
-        closeAllPopups()
-      }
-    }
     if (isOpen) {
+      function closeByEscape(evt) {
+        if (evt.key === 'Escape') {
+          closeAllPopups()
+        }
+      }
       document.addEventListener('keydown', closeByEscape)
       return () => {
         document.removeEventListener('keydown', closeByEscape)
@@ -252,6 +254,9 @@ function App() {
               />
             }
           />
+          <Route path='*' element={
+            loggedIn ? <Navigate to="/"/> : <Navigate to="/sign-in"/>
+          } />
         </Routes>
 
         <Footer />
