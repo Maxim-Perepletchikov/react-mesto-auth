@@ -7,8 +7,16 @@ export default function PopupWithForm({
   onClose,
   onSubmit,
 }) {
+
+  function handleOverlayClose(event) {
+    if(event.target === event.currentTarget && isOpen) {
+      onClose()
+    }
+  }
+
   return (
-    <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
+    <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}` } 
+    onMouseDown={handleOverlayClose}>
       <div className="popup__form-container">
         <button
           className="popup__close-button"
