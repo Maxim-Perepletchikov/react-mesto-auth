@@ -15,14 +15,18 @@ import { Route, Routes, useNavigate, Navigate } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 import * as auth from '../utils/auth'
 import InfoTooltip from './InfoTooltip'
+import CardDeletePopup from './CardDeletePopup'
+import spinner from '../images/loading-loading-forever.gif'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [isInfoTooltip, setIsInfoTooltip] = useState(false)
+  const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = useState(false)
 
   const [selectedCard, setSelectedCard] = useState({})
+  const [cardForDelete, setCardForDelete] = useState({})
   const [currentUser, setCurrentUser] = useState({})
 
   const [cards, setCards] = useState([])
@@ -44,6 +48,7 @@ function App() {
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
     isInfoTooltip ||
+    isCardDeletePopupOpen ||
     selectedCard.isOpen
 
   const navigate = useNavigate()
@@ -146,11 +151,17 @@ function App() {
     setIsAddPlacePopupOpen(true)
   }
 
+  function handleCardDeleteRequest(card) {
+    setIsCardDeletePopupOpen(true)
+    setCardForDelete(card)
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setIsInfoTooltip(false)
+    setIsCardDeletePopupOpen(false)
     setSelectedCard({ ...selectedCard, isOpen: false })
   }
 
@@ -176,6 +187,7 @@ function App() {
       .deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id))
+        closeAllPopups()
       })
       .catch(console.log)
   }
@@ -240,7 +252,7 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute
+              loggedIn ? <ProtectedRoute
                 component={Main}
                 loggedIn={loggedIn}
                 cards={cards}
@@ -249,9 +261,12 @@ function App() {
                 onAddPlace={handleAddPlaceClick}
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
+                onCardDelete={handleCardDeleteRequest}
                 isLoading={isLoading}
-              />
+                spinner={spinner}
+              /> : <div className='spinner'>
+              <img src={spinner} alt='анимация загрузки'/>
+            </div>
             }
           />
           <Route path='*' element={
@@ -288,7 +303,12 @@ function App() {
           message={message}
         />
 
-        <PopupWithForm name="delete-card" title="Вы уверенны?" />
+        <CardDeletePopup 
+          isOpen={isCardDeletePopupOpen}
+          onClose={closeAllPopups}
+          onCardDelete={handleCardDelete}
+          card={cardForDelete}
+        />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>

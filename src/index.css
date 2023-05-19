@@ -58,5 +58,7 @@
 
 @import url(./blocks/popup/_opened/popup_opened.css);
 
+@import url(./blocks/spinner/spinner.css);
+
 @import url(./blocks/auth/auth.css);
 @import url(./blocks/auth/__footer/auth__footer.css);

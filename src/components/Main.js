@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import Card from './Card'
-import spinner from '../images/loading-loading-forever.gif'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 export default function Main({
@@ -12,6 +11,7 @@ export default function Main({
   onCardLike,
   onCardDelete,
   isLoading,
+  spinner
 }) {
   const currentUser = useContext(CurrentUserContext)
 
